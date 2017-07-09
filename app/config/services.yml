@@ -1,0 +1,22 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    AppBundle\:
+        resource: '../../src/AppBundle/*'
+        exclude: '../../src/AppBundle/{Model,Bag,Entity,Factory}'
+
+    AppBundle\Controller\:
+        resource: '../../src/AppBundle/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    shopify.bag:
+        class: AppBundle\Bag\ShopifyBag
+        arguments:
+            -   key: '%shopify_api_key%'
+                secret: '%shopify_api_secret%'
+                url: '%shpoify_app_url%'
+                scope: '%shopify_app_scope%'
