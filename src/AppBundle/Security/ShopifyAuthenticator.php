@@ -42,11 +42,17 @@ class ShopifyAuthenticator extends AbstractGuardAuthenticator
      */
     public function getUser($request, UserProviderInterface $userProvider)
     {
+        if ($request->hasSession() && $request->getSession()->get('user')) {
+            return $userProvider->refreshUser($request->getSession()->get('user'));
+        }
         if (!$this->validateHmac($request)) {
             return null;
         }
 
-        return $userProvider->loadUserByUsername($request->get('shop'));
+        $user = $userProvider->loadUserByUsername($request->get('shop'));
+        $request->getSession()->set('user', $user);
+
+        return $user;
     }
 
     public function checkCredentials($credentials, UserInterface $user)

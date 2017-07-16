@@ -16,7 +16,7 @@ class User extends UserModel
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -33,6 +33,13 @@ class User extends UserModel
     public function __construct(string $shop)
     {
         parent::__construct($shop);
+    }
+
+    public function getShopName(): string
+    {
+        list($shopName) = explode('.', $this->shop);
+
+        return $shopName;
     }
 
     public function getId(): ?int

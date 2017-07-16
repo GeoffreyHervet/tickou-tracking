@@ -18,5 +18,6 @@ services:
         arguments:
             -   key: '%shopify_api_key%'
                 secret: '%shopify_api_secret%'
-                url: '%shpoify_app_url%'
+                url: '%shopify_app_url%'
                 scope: '%shopify_app_scope%'
+                identifier: '%shopify_app_identifier%'

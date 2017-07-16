@@ -13,10 +13,29 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class DefaultController
 {
     /**
+     * @var ShopifyBag
+     */
+    private $shopifyBag;
+
+    /**
+     * DefaultController constructor.
+     *
+     * @param ShopifyBag $shopifyBag
+     */
+    public function __construct(ShopifyBag $shopifyBag)
+    {
+        $this->shopifyBag = $shopifyBag;
+    }
+
+    /**
      * @Route("/install", name="homepage")
      */
-    public function indexAction(Request $request, RouterInterface $router, ShopifyBag $shopifyBag): RedirectResponse
+    public function indexAction(Request $request, RouterInterface $router): RedirectResponse
     {
+        if ($request->get('protocol')) {
+            return new RedirectResponse($router->generate('app_index'));
+        }
+        $shopifyBag = $this->shopifyBag;
         $backUrl = 'https://' . $request->get('shop') . '/admin/oauth/authorize'
             . '?client_id=' . $shopifyBag->get('key')
             . '&scope=' . $shopifyBag->get('scope')
@@ -30,8 +49,9 @@ class DefaultController
      */
     public function authAction(Request $request, AccessTokenProvider $accessTokenProvider, UserInterface $user)
     {
+        $shopifyBag = $this->shopifyBag;
         $accessTokenProvider->refreshAccessToken($user, $request->get('code'));
 
-        return new RedirectResponse('https://' . $user->getShop() . '/admin');
+        return new RedirectResponse('https://' . $user->getShop() . '/admin/apps/'. $shopifyBag->get('identifier'));
     }
 }

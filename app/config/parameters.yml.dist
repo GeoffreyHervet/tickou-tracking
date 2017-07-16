@@ -21,5 +21,13 @@ parameters:
     # Shopify section
     shopify_api_key: ~
     shopify_api_secret: ~
-    shpoify_app_url: 6f2b87ad.ngrok.io
+    shopify_app_url: 6f2b87ad.ngrok.io
     shopify_app_scope: ~
+    shopify_app_identifier: ~
+
+    # RabbitMQ
+    rabbitmq_host: localhost
+    rabbitmq_port: 5672
+    rabbitmq_user: guest
+    rabbitmq_pass: guest
+    rabbitmq_vhost: /
