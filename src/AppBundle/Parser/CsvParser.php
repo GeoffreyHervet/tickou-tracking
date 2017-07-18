@@ -38,7 +38,7 @@ class CsvParser
 
     public function getHeader(string $header, string $delimiter): iterable
     {
-        $exploded = explode($delimiter, trim($header));
+        $exploded = explode($delimiter, strtolower(trim($header)));
 
         foreach ($exploded as $column) {
             yield trim($column, "\t\n\r\0\x0B \"'");

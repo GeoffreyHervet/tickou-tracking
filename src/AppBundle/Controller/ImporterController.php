@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Fulfillment;
 use AppBundle\Entity\User;
 use AppBundle\Factory\FulfillmentFactory;
+use AppBundle\Form\FileUploaderForm;
 use AppBundle\Parser\CsvParser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Form\Form;
 
 class ImporterController extends Controller
 {
@@ -26,10 +28,15 @@ class ImporterController extends Controller
      * @Route("/application", name="app_index")
      * @Method("GET")
      */
-    public function indexAction(Request $request, UserInterface $user): Response
+    public function indexAction(UserInterface $user): Response
     {
-        return $this->render('AppBundle:Importer:index.html.twig', [
-            'user' => $user
+        return $this->renderWithForm($user, $this->getForm());
+    }
+
+    private function getForm(): Form
+    {
+        return $this->createForm(FileUploaderForm::class, null, [
+            'action' => $this->generateUrl('upload')
         ]);
     }
 
@@ -39,12 +46,13 @@ class ImporterController extends Controller
     public function uploadCsvAction(Request $request, UserInterface $user, CsvParser $parser)
     {
         $user = $this->getDoctrine()->getManager()->find(User::class, $user->getId());
-        /** @var UploadedFile $file */
-        $file = $request->files->get('file');
-        if (!$file) {
-            return $this->renderWithError($user, 'No file uploaded');
+        $form = $this->getForm();
+        $form->handleRequest($request);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            $this->renderWithForm($user, $form);
         }
 
+        $file = $form->getData()['file'];
         $em = $this->getDoctrine()->getManager();
         $lineNumber = 1;
         $fulfillments = [];
@@ -69,17 +77,14 @@ class ImporterController extends Controller
             $producer->publish($fulfillment->getId());
         }
 
-        return $this->render('AppBundle:Importer:index.html.twig', [
-            'user' => $user,
-            'success' => 'Imported '. count($fulfillments) . ' lines!',
-        ]);
+        return $this->redirectToRoute('app_fulfillments');
     }
 
-    private function renderWithError(User $user, string $errorMessage)
+    private function renderWithForm(User $user, Form $form)
     {
         return $this->render('AppBundle:Importer:index.html.twig', [
             'user' => $user,
-            'error' => $errorMessage,
+            'form' => $form->createView(),
         ]);
     }
 }

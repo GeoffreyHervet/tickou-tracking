@@ -232,7 +232,7 @@ class Fulfillment
      */
     public function getTrackingLink(): string
     {
-        return $this->trackingLink;
+        return $this->trackingLink ?? '';
     }
 
     /**
@@ -240,7 +240,7 @@ class Fulfillment
      */
     public function getShipperName(): string
     {
-        return $this->shipperName;
+        return $this->shipperName ?? '';
     }
 
     /**
@@ -248,7 +248,7 @@ class Fulfillment
      */
     public function getSupplier(): string
     {
-        return $this->supplier;
+        return $this->supplier ?? '';
     }
 
     public function isDone(): bool

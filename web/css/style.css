@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+section .card.menu {
+    padding: 0;
+}
+
+section .card.menu a:hover {
+    background: #B4E1FA;
+    color: #001429;
+}
+section .card.menu a.current,
+section .card.menu a.current:hover {
+    background: #dfe3e8;
+    color: #212b36;
+}
+section .card.menu a {
+    display: block;
+    float: left;
+    padding: 2rem;
+}
+@media (min-width: 500px) {
+
+}

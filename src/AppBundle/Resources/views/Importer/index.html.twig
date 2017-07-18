@@ -1,35 +1,29 @@
 {% extends '::base.html.twig' %}
 
-{#<script type='text/javascript'>#}
-    {#// If the current window is the 'parent', change the URL by setting location.href#}
-    {#if (window.top == window.self) {#}
-        {#window.top.location.href = "/auth/shopify?shop={{ user.shopName }}";#}
-
-        {#// If the current window is the 'child', change the parent's URL with postMessage#}
-    {#} else {#}
-        {#message = JSON.stringify({#}
-            {#message: "Shopify.API.remoteRedirect",#}
-            {#data: { location: window.location.origin + "/auth/shopify?shop={{ user.shopName }}" }#}
-        {#});#}
-        {#window.parent.postMessage(message, 'https://shopizy-demo.myshopify.com');#}
-    {#}#}
-{#</script>#}
-
-{% block body %}
-    <div class="container-fluid">
-        <form  enctype="multipart/form-data" method="post" action="{{ path('upload') }}">
-            <br /><br />
-            {% if error is defined %}
-                <div class="alert alert-danger" role="alert">{{ error }}</div>
-            {% elseif success is defined %}
-                <div class="alert alert-success" role="alert">{{ success }}</div>
-            {% endif %}
-            <div class="form-group">
-                <label for="file">CSV File</label>
-                <input type="file" id="file" placeholder="Email" name="file" required>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-
+{% block content %}
+    <div class="toc-block">
+      <section>
+          <div class="column">
+              <article>
+                  <div class="card columns twelve">
+                      <h2>{{ 'form.upload.title' | trans }}</h2>
+                      {{ form_start(form) }}
+                          {{ form_row(form.file) }}
+                          {{ form_row(form.submit) }}
+                      {{ form_end(form) }}
+                  </div>
+              </article>
+              <article>
+                  <div class="column twelve">
+                      <div class="alert notice">
+                          <dl>
+                              <dt>{{ 'form.upload.notice.title' | trans}}</dt>
+                              <dd>{{ 'form.upload.notice.content' | trans | raw}}</dd>
+                          </dl>
+                      </div>
+                  </div>
+              </article>
+          </div>
+      </section>
     </div>
 {% endblock %}

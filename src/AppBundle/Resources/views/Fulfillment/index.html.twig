@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="toc-block">
+        <section>
+            <div class="column">
+                <article>
+                    <div class="card columns twelve">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>{{ 'fulfillment.list.header.order' | trans}}</th>
+                                <th>{{ 'fulfillment.list.header.tracking' | trans}}</th>
+                                <th>{{ 'fulfillment.list.header.shipper' | trans}}</th>
+                                <th>{{ 'fulfillment.list.header.supplier' | trans}}</th>
+                                <th>{{ 'fulfillment.list.header.status' | trans}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for fulfillment in fulfillments %}
+                                <tr>
+                                    <td><a href="/admin/orders/4735962053" target="_parent">#{{ fulfillment.order }}</a></td>
+                                    <td>
+                                        {% if fulfillment.trackingLink is not empty %}
+                                            <a href="{{ fulfillment.trackingLink }}" target="_blank">
+                                                {{ fulfillment.trackingNumber }}
+                                                &nbsp; <sup><i class="icon-offsite"></i></sup>
+                                            </a>
+                                        {% else %}
+                                            {{ fulfillment.trackingNumber }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ fulfillment.shipperName | default('-') }}</td>
+                                    <td>{{ fulfillment.supplier | default('-') }}</td>
+                                    <td>
+                                        {% if fulfillment.done %}<span class="tag green">{{ 'status.done' | trans }}</span>
+                                        {% elseif fulfillment.failed %}<span class="tag red">{{ 'status.failure' | trans }}</span>
+                                        {% elseif fulfillment.inProgress %}<span class="tag blue">{{ 'status.in_progress' | trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="align-center">{{ 'fulfillment.list.empty' | trans }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+{% endblock %}
