@@ -95,3 +95,6 @@ old_sound_rabbit_mq:
             exchange_options: {name: 'fulfillment', type: direct}
             queue_options:    {name: 'fulfillment'}
             callback:         AppBundle\Consumer\FulfillmentConsumer
+
+cl_slack:
+    api_token: %slack_token%

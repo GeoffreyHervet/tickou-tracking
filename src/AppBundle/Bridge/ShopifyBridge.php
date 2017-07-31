@@ -3,6 +3,7 @@
 namespace AppBundle\Bridge;
 
 use AppBundle\Entity\Fulfillment;
+use AppBundle\Entity\User;
 use AppBundle\Exception\TooManyRequestException;
 use AppBundle\Factory\GuzzleFactory;
 use GuzzleHttp\Exception\BadResponseException;
@@ -26,6 +27,13 @@ class ShopifyBridge
         }
 
         return $response->getBody()->getContents();
+    }
+
+    public function getDetails(User $user): array
+    {
+        $client = GuzzleFactory::create($user);
+        return json_decode($client->get('/admin.json')->getBody()->getContents());
+        return [];
     }
 
     private function handleBadResponse(BadResponseException $exception)

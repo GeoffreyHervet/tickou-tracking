@@ -46,7 +46,10 @@ class AccessTokenProvider
         ]);
 
         $responseData = json_decode($response->getBody()->getContents(), true);
-        $user->setAccessToken($responseData['access_token']);
-        $this->userManager->update($user);
+        if ($user->getAccessToken() !== $responseData['access_token']) {
+            $user = $this->userManager->findOrCreate($user->getShop());
+            $user->setAccessToken($responseData['access_token']);
+            $this->userManager->update($user);
+        }
     }
 }

@@ -21,6 +21,7 @@
     },
     "require": {
         "php": ">=5.5.9",
+        "cleentfaar/slack-bundle": "^0.20.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "guzzlehttp/guzzle": "^6.3",

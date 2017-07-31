@@ -17,6 +17,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
             new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle(),
+            new CL\Bundle\SlackBundle\CLSlackBundle(),
+
             new AppBundle\AppBundle(),
         ];
 

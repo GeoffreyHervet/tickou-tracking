@@ -31,3 +31,6 @@ parameters:
     rabbitmq_user: guest
     rabbitmq_pass: guest
     rabbitmq_vhost: /
+
+    # Slack
+    slack_token: your_token

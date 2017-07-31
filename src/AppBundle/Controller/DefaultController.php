@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Bag\ShopifyBag;
+use AppBundle\Notifier\SlackNotifier;
 use AppBundle\Provider\AccessTokenProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -47,10 +48,11 @@ class DefaultController
     /**
      * @Route("/auth", name="auth")
      */
-    public function authAction(Request $request, AccessTokenProvider $accessTokenProvider, UserInterface $user)
+    public function authAction(Request $request, AccessTokenProvider $accessTokenProvider, UserInterface $user, SlackNotifier $notifier)
     {
         $shopifyBag = $this->shopifyBag;
         $accessTokenProvider->refreshAccessToken($user, $request->get('code'));
+        $notifier->notifyNewClient($user);
 
         return new RedirectResponse('https://' . $user->getShop() . '/admin/apps/'. $shopifyBag->get('identifier'));
     }
