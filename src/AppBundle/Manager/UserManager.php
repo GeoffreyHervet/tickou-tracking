@@ -4,23 +4,23 @@ namespace AppBundle\Manager;
 
 use AppBundle\Model\User;
 use AppBundle\Entity\User as UserEntity;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 class UserManager
 {
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
-    private $registryInterface;
+    private $doctrine;
 
     /**
      * UserManager constructor.
      *
-     * @param RegistryInterface $registryInterface
+     * @param ManagerRegistry $registryInterface
      */
-    public function __construct(RegistryInterface $registryInterface)
+    public function __construct(ManagerRegistry $registryInterface)
     {
-        $this->registryInterface = $registryInterface;
+        $this->doctrine = $registryInterface;
     }
 
     public function findOrCreate(string $shop): User
@@ -34,7 +34,7 @@ class UserManager
         }
 
         $user = new UserEntity($shop);
-        $em = $this->registryInterface->getManager();
+        $em = $this->doctrine->getManager();
         $em->persist($user);
         $em->flush($user);
 
@@ -43,11 +43,11 @@ class UserManager
 
     public function update(User $user)
     {
-        $this->registryInterface->getManager()->flush($user);
+        $this->doctrine->getManager()->flush($user);
     }
 
     private function getRepository()
     {
-        return $this->registryInterface->getManager()->getRepository(UserEntity::class);
+        return $this->doctrine->getManager()->getRepository(UserEntity::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="fulfillment")
@@ -44,18 +45,22 @@ class Fulfillment
     /**
      * @var int
      * @ORM\Column(name="order_number", type="bigint")
+     * @Assert\NotBlank()
+     * @Assert\Range(min="1000", max="99999999999")
      */
     protected $order;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank()
      */
     protected $trackingNumber;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=512, nullable=true)
+     * @Assert\Url()
      */
     protected $trackingLink;
 
@@ -84,7 +89,7 @@ class Fulfillment
      *
      * @return Fulfillment
      */
-    public function setTrackingNumber(string $trackingNumber): Fulfillment
+    public function setTrackingNumber(?string $trackingNumber): Fulfillment
     {
         $this->trackingNumber = $trackingNumber;
 
@@ -120,7 +125,7 @@ class Fulfillment
      *
      * @return Fulfillment
      */
-    public function setType(int $type): Fulfillment
+    public function setType(?int $type): Fulfillment
     {
         $this->type = $type;
 
@@ -144,7 +149,7 @@ class Fulfillment
      *
      * @return Fulfillment
      */
-    public function setOrder(int $order): Fulfillment
+    public function setOrder(?int $order): Fulfillment
     {
         $this->order = $order;
 
@@ -156,7 +161,7 @@ class Fulfillment
      *
      * @return Fulfillment
      */
-    public function setTrackingLink(string $trackingLink): Fulfillment
+    public function setTrackingLink(?string $trackingLink): Fulfillment
     {
         $this->trackingLink = $trackingLink;
 
@@ -168,7 +173,7 @@ class Fulfillment
      *
      * @return Fulfillment
      */
-    public function setShipperName(string $shipperName): Fulfillment
+    public function setShipperName(?string $shipperName): Fulfillment
     {
         $this->shipperName = $shipperName;
 
@@ -180,7 +185,7 @@ class Fulfillment
      *
      * @return Fulfillment
      */
-    public function setSupplier(string $supplier): Fulfillment
+    public function setSupplier(?string $supplier): Fulfillment
     {
         $this->supplier = $supplier;
 
@@ -216,13 +221,21 @@ class Fulfillment
      */
     public function getContext(): string
     {
-        return $this->context;
+        return $this->context ?? '';
+    }
+
+    /**
+     * @return array
+     */
+    public function getDecodedContext(): array
+    {
+        return json_decode($this->context ?? '[]', true);
     }
 
     /**
      * @return int
      */
-    public function getOrder(): int
+    public function getOrder(): ?int
     {
         return $this->order;
     }

@@ -1,41 +1,61 @@
 form:
-    upload:
-        title: Upload your tracking CSV file
-        label:
-            file: 'Your file:'
-        notice:
-          title: How to format my file ?
-          content: >
-              <p>Your CSV file must content the following columns:</p>
-              <ul>
-                  <li><strong>tracking</strong> <em class="red">Mandatory</em> The tracking number of your item (e.g: BF964388392JB)</li>
-                  <li><strong>order</strong> <em class="red">Mandatory</em> The shopify order number (e.g: 4735962053)</li>
-                  <li><strong>link</strong> <em>Optional</em> The tracking link (e.g: https://shipper.com?trk=BF964388392JB)</li>
-                  <li><strong>shipper</strong> <em>Optional</em> The shipper name (e.g: chronopost)</li>
-                  <li><strong>supplier</strong> <em>Optional</em> The shopify supplier name (e.g: My factory1)</li>
-              </ul>
-              <br /><br />
-              <p>For the given example, the CSV is:</p>
-              <code>order,tracking,link,shipper,supplier</code><br />
-              <code>4735962053,BF964388392JB,https://shipper.com?trk=BF964388392JB,chronopost,My factory1</code>
-              <br /><br />
-              <p>The minimum CSV content is:</p>
-              <code>order,tracking</code><br />
-              <code>4735962053,BF964388392JB</code>
+  upload:
+    title: Upload your tracking CSV file
+    label:
+      file: 'Your file:'
+    notice:
+      title: How to format my file ?
+      content: >
+          <p>Your CSV file must content the following columns:</p>
+          <ul>
+              <li><strong>tracking</strong> <em class="red">Mandatory</em> The tracking number of your item (e.g: BF964388392JB)</li>
+              <li><strong>order</strong> <em class="red">Mandatory</em> The shopify order number (e.g: 4735962053)</li>
+              <li><strong>link</strong> <em>Optional</em> The tracking link (e.g: https://shipper.com?trk=BF964388392JB)</li>
+              <li><strong>shipper</strong> <em>Optional</em> The shipper name (e.g: chronopost)</li>
+              <li><strong>supplier</strong> <em>Optional</em> The shopify supplier name (e.g: My factory1)</li>
+          </ul>
+          <br /><br />
+          <p>For the given example, the CSV is:</p>
+          <code>order,tracking,link,shipper,supplier</code><br />
+          <code>4735962053,BF964388392JB,https://shipper.com?trk=BF964388392JB,chronopost,My factory1</code>
+          <br /><br />
+          <p>The minimum CSV content is:</p>
+          <code>order,tracking</code><br />
+          <code>4735962053,BF964388392JB</code>
 menu:
   csv: Upload your CSV
   fulfillments: Fulfillments
+
+alert:
+  success: Success alert
 
 fulfillment:
   list:
     empty: You don't have any fulfillments.
     header:
-        order: Order
-        tracking: Tracking
-        shipper: Shipper
-        supplier: Supplier
-        status: Synchronization status
+      order: Order
+      tracking: Tracking
+      shipper: Shipper
+      supplier: Supplier
+      status: Synchronization status
+      details: Details
+  detail:
+    error:
+      title: 'Shopify has returned the following error:'
+  edit: Edit
+  delete: Delete
+  delete-confirm: Are you sure ?
 
+  form:
+    edit: Edit a fulfillment
+    order: Order number
+    tracking-number: Tracking number
+    tracking-link: Tracking link
+    shipper-name: Shipper name
+    supplier: Supplier
+
+  flash:
+    success: Fulfillment edited with success !
 status:
     in_progress: in progess
     done: done

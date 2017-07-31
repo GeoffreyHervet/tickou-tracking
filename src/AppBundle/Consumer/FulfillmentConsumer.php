@@ -8,12 +8,12 @@ use AppBundle\Exception\TooManyRequestException;
 use GuzzleHttp\Exception\BadResponseException;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 class FulfillmentConsumer implements ConsumerInterface
 {
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     private $doctrine;
 
@@ -27,7 +27,7 @@ class FulfillmentConsumer implements ConsumerInterface
      */
     private $errorCount;
 
-    public function __construct(RegistryInterface $doctrine, ShopifyBridge $shopifyBridge)
+    public function __construct(ManagerRegistry $doctrine, ShopifyBridge $shopifyBridge)
     {
         $this->doctrine = $doctrine;
         $this->shopifyBridge = $shopifyBridge;

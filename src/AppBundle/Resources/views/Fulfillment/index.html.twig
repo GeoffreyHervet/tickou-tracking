@@ -14,12 +14,13 @@
                                 <th>{{ 'fulfillment.list.header.shipper' | trans}}</th>
                                 <th>{{ 'fulfillment.list.header.supplier' | trans}}</th>
                                 <th>{{ 'fulfillment.list.header.status' | trans}}</th>
+                                <th>{{ 'fulfillment.list.header.details' | trans}}</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for fulfillment in fulfillments %}
                                 <tr>
-                                    <td><a href="/admin/orders/4735962053" target="_parent">#{{ fulfillment.order }}</a></td>
+                                    <td><a href="/admin/orders/{{ fulfillment.order }}" target="_parent">#{{ fulfillment.order }}</a>
                                     <td>
                                         {% if fulfillment.trackingLink is not empty %}
                                             <a href="{{ fulfillment.trackingLink }}" target="_blank">
@@ -38,6 +39,7 @@
                                         {% elseif fulfillment.inProgress %}<span class="tag blue">{{ 'status.in_progress' | trans }}</span>
                                         {% endif %}
                                     </td>
+                                    <td><a href="{{ path('fulfillment_show', {'id': fulfillment.id}) }}">Details</a></td>
                                 </tr>
                             {% else %}
                                 <tr>

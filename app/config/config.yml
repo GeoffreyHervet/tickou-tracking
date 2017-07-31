@@ -38,7 +38,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-        shopibag: '@shopify.bag'
+        shopibag: '@AppBundle\Bag\ShopifyBag'
     form_themes:
         - 'form/theme.html.twig'
 

@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="toc-block">
+        <section>
+            <div class="column">
+                <article>
+                    <div class="card columns twelve">
+                        <h2>{{ 'fulfillment.form.edit' | trans }}</h2>
+                        {{ form_start(form) }}
+                            {{ form_row(form.order) }}
+                            {{ form_row(form.trackingNumber) }}
+                            {{ form_row(form.trackingLink) }}
+                            {{ form_row(form.shipperName) }}
+                            {{ form_row(form.supplier) }}
+                            {{ form_row(form.submit) }}
+                        {{ form_end(form) }}
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+{% endblock %}

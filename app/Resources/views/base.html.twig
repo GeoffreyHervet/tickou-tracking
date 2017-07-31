@@ -18,7 +18,27 @@
                                 <article>
                                     <div class="card columns twelve menu">
                                         <a href="{{ path('app_index') }}" {% if app.request.attributes.get('_route') == 'app_index' %}class="current"{% endif %}>{{ 'menu.csv' | trans }}</a>
-                                        <a href="{{ path('app_fulfillment') }}" {% if app.request.attributes.get('_route') == 'app_fulfillment' %}class="current"{% endif %}>{{ 'menu.fulfillments' | trans}}</a>
+                                        <a href="{{ path('app_fulfillment') }}" {% if 'fulfillment' in app.request.attributes.get('_route') %}class="current"{% endif %}>{{ 'menu.fulfillments' | trans}}</a>
+                                    </div>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                {% endblock %}
+                {% block flash %}
+                    <div class="toc-block">
+                        <section>
+                            <div class="column">
+                                <article>
+                                    <div class="column twelve card align-right transparent">
+                                        {% for label, messages in app.flashes %}
+                                            {% for message in messages %}
+                                                <dl>
+                                                    <dt>{{ ('alert.' ~ label) | trans }}</dt>
+                                                    <dd>{{ message | trans }}</dd>
+                                                </dl>
+                                            {% endfor %}
+                                        {% endfor %}
                                     </div>
                                 </article>
                             </div>

@@ -18,6 +18,11 @@ section .card.menu a {
     float: left;
     padding: 2rem;
 }
-@media (min-width: 500px) {
 
+html body section article > div.transparent
+{
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
 }

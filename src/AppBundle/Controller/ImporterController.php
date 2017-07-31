@@ -77,7 +77,7 @@ class ImporterController extends Controller
             $producer->publish($fulfillment->getId());
         }
 
-        return $this->redirectToRoute('app_fulfillments');
+        return $this->redirectToRoute('app_fulfillment');
     }
 
     private function renderWithForm(User $user, Form $form)

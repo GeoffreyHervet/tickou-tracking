@@ -1,0 +1,15 @@
+{% macro array_to_list(array) %}
+    {% from _self import array_to_list %}
+    {% for key, value in array %}
+        <ul>
+            <li>
+                {% set number = key matches '/^\\d+$/' %}
+                {% if not number %}{{ key }}: {% endif %}
+                {% if value is iterable %}
+                    {{ array_to_list(value) }}
+                {% else %}{{ value }}
+                {% endif %}
+            </li>
+        </ul>
+    {% endfor %}
+{% endmacro %}

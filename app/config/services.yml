@@ -13,8 +13,7 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    shopify.bag:
-        class: AppBundle\Bag\ShopifyBag
+    AppBundle\Bag\ShopifyBag:
         arguments:
             -   key: '%shopify_api_key%'
                 secret: '%shopify_api_secret%'
