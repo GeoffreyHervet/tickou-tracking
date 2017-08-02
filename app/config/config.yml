@@ -75,11 +75,11 @@ swiftmailer:
 old_sound_rabbit_mq:
     connections:
         default:
-            host:     'localhost'
-            port:     5672
-            user:     'guest'
-            password: 'guest'
-            vhost:    '/'
+            host:     '%rabbitmq_host%'
+            port:     '%rabbitmq_port%'
+            user:     '%rabbitmq_user%'
+            password: '%rabbitmq_pass%'
+            vhost:    '%rabbitmq_vhost%'
             lazy:     false
             connection_timeout: 3
             read_write_timeout: 3
